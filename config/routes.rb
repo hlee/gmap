@@ -1,4 +1,10 @@
 Rails3MongoidDevise::Application.routes.draw do
+  resources :locations
+
+
+  resources :projects
+
+
   authenticated :user do
     root :to => 'home#index'
   end
