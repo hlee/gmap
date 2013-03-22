@@ -1,4 +1,21 @@
-<h1>Listing projects</h1>
+<h1>Search Projects</h1>
+
+<%= form_tag projects_path, :method => :get do %>
+  <p>
+  Radius 
+  <br />
+  <%= text_field_tag :radius, params[:radius] %>
+  <br />
+  Address 
+  <br />
+  <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search Near", :name => nil %>
+  </p>
+<% end %>
+
+<br />
+<%=gmaps("map_options" => { "auto_zoom" => false, "type" => "ROADMAP", "zoom" => 12, "detect_location" => true, "center_on_user" => true, "auto_adjust" => true},"markers" => { "data" => Project.all.to_gmaps4rails }) %>
+<%= link_to 'New Project', new_project_path %>
 
 <table>
   <tr>
@@ -22,6 +39,3 @@
 <% end %>
 </table>
 
-<br />
-<%= gmaps4rails(Project.all.to_gmaps4rails) %>
-<%= link_to 'New Project', new_project_path %>
