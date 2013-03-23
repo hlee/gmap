@@ -26,7 +26,7 @@
   <div class="field">
     <%= f.label :location %><br />
     <% @project.location.each do |x|%>
-      <%= f.text_field :location, name: "#{f.object_name}[location][]", value: x%>
+      <%= f.text_field :location, name: "#{f.object_nam}[location][]", value: x%>
     <% end %>
   </div>
   <div class="actions">
