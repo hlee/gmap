@@ -45,7 +45,8 @@
         // On click, clear markers, place a new one, update coordinates in the form
   $(function() {
     $("#ajax").click(function(){
-      var myLocation = new google.maps.LatLng("#{Project.last.to_latlng}");
+      //var myLocation = new google.maps.LatLng("#{Project.last.to_latlng}");
+      var myLocation = new google.maps.LatLng( "#{@my_place}" );
       placeMarker(myLocation);
     });
   });
