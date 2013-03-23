@@ -9,4 +9,7 @@ class Project
   field :description, type: String
   acts_as_gmappable :position => :location, :process_geocoding => false
   field :location, :type => Array
+  def to_latlng
+    self.location.first.to_s + ", " + self.location.last.to_s
+  end
 end
