@@ -24,6 +24,7 @@
     <th>Name</th>
     <th>Created at</th>
     <th>Description</th>
+    <th>Location</th>
     <th></th>
     <th></th>
     <th></th>
@@ -34,6 +35,7 @@
     <td><%= project.name %></td>
     <td><%= project.created_at %></td>
     <td><%= project.description %></td>
+    <td><%= project.location%></td>
     <td><%= link_to 'Show', project %></td>
     <td><%= link_to 'Edit', edit_project_path(project) %></td>
     <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
