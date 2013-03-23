@@ -1,0 +1,12 @@
+Geocoder
+http://www.daftlogic.com/sandbox-google-maps-reverse-geocoder.htm
+IPMapper
+http://stackoverflow.com/questions/14557466/find-latitude-longitude-of-a-given-ip-address-using-ipmapper
+https://github.com/apneadiving/Google-Maps-for-Rails/wiki/Javascript-goodieso
+https://gist.github.com/apneadiving/1643990/revisions
+https://github.com/cjheath/geoip
+https://github.com/apneadiving/Google-Maps-for-Rails
+http://tristandunn.com/projects/jquery-auto-geocoder/
+
+jQuery-ui-map
+https://code.google.com/p/jquery-ui-map/
