@@ -1,4 +1,4 @@
-Rails3MongoidDevise::Application.routes.draw do
+Gmap::Application.routes.draw do
   resources :locations
 
 
