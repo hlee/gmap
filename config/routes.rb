@@ -2,11 +2,13 @@ Gmap::Application.routes.draw do
   resources :locations
 
 
-  resources :projects
+  resources :projects do
+    get 'list', on: :collection
+  end
 
 
   authenticated :user do
-    root :to => 'home#index'
+    root :to => "projects#index"
   end
   root :to => "home#index"
   devise_for :users

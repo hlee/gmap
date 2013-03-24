@@ -1,0 +1,69 @@
+<h1>Show Projects</h1>
+<br />
+<div id='map_canvas'>
+</div>
+<%#=gmaps("map_options" => { "auto_zoom" => false, "type" => "ROADMAP", "zoom" => 12, "detect_location" => true, "center_on_user" => true, "auto_adjust" => true},"markers" => { "data" => Project.all.to_gmaps4rails }) %>
+<button type="button" id="ajax">Load Map</button>
+
+<%= link_to 'New Project', new_project_path %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Created at</th>
+    <th>Description</th>
+    <th>Location</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @projects.each do |project| %>
+    <tr>
+      <td><%= project.name %></td>
+      <td><%= project.created_at %></td>
+      <td><%= project.description %></td>
+      <td><%= project.location%></td>
+      <td><%= link_to 'Show', project %></td>
+      <td><%= link_to 'Edit', edit_project_path(project) %></td>
+      <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>
+<script type="text/javascript" charset="utf-8">
+  var geocoder;
+  var map;
+
+function initialize()
+{
+  geocoder = new google.maps.Geocoder();
+  var latlng = new google.maps.LatLng(54.55, -5.953);
+  var myOptions = {zoom: 11,center: latlng,mapTypeId:google.maps.MapTypeId.HYBRID,draggableCursor:'crosshair'}
+  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  google.maps.event.addListener(map, 'click',function(me){
+    codeLatLng(me.latLng);
+    });
+}
+function codeLatLng(latlng)
+{
+  if (geocoder)
+  {
+    geocoder.geocode({'latLng': latlng}, function(results, status)
+      {
+      if (status == google.maps.GeocoderStatus.OK)
+      {
+      if (results[1])
+      {
+      document.getElementById("address").innerHTML=results[1].formatted_address;
+      }
+      else
+      {
+      document.getElementById("message").innerHTML="Geocoder failed due to: " + status;
+      document.getElementById("address").innerHTML="";
+      }
+      }
+      });
+  }
+} 
+</script>
+
