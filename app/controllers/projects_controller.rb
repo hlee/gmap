@@ -15,6 +15,19 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def list
+    require 'geoip'
+    @projects = Project.all
+    rip = request.remote_ip
+    ip = rip == '127.0.0.1' ? '24.90.88.129' : rip
+    geo = GeoIP.new('lib/GeoLiteCity.dat').city(ip)
+    @my_place = geo.latitude.to_s + ", " + geo.longitude.to_s
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @projects }
+    end
+  end
+
   # GET /projects/1
   # GET /projects/1.json
   def show
