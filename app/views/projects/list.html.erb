@@ -31,16 +31,25 @@
   <% end %>
 </table>
 <script type="text/javascript" charset="utf-8">
-
+var fetch_location = function(pos) {
+  $.ajax({
+    type: 'get',
+    url: "/projects/fetch",
+    data: {lat: pos.lat(), lng: pos.lng()}
+  }).done(function(msg){
+    alert("Project info: " + msg);
+  });
+};
 Gmaps.map.HandleDragend = function(pos) {
+  fetch_location(pos);
   var geocoder = new google.maps.Geocoder();
-  geocoder.geocode({
+    geocoder.geocode({
     latLng: pos
   }, function(responses) {
     if (responses && responses.length > 0) {
-      alert(responses[0].formatted_address);
+      alert("Project Address: " + responses[0].formatted_address);
     } else {
-    alert('Cannot determine address at this location.');
+      alert('Cannot determine address at this location.');
     }
   });
 };
@@ -49,5 +58,5 @@ Gmaps.map.callback = function() {
   for (var i = 0; i <  this.markers.length; ++i) {
      google.maps.event.addListener(Gmaps.map.markers[i].serviceObject, 'click', function() { Gmaps.map.HandleDragend(this.getPosition()) });
   }
-};        
+};
 </script>
