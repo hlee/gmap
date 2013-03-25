@@ -2,7 +2,7 @@
 <br />
 <div id='map_canvas'>
 </div>
-<%#=gmaps("map_options" => { "auto_zoom" => false, "type" => "ROADMAP", "zoom" => 12, "detect_location" => true, "center_on_user" => true, "auto_adjust" => true},"markers" => { "data" => Project.all.to_gmaps4rails }) %>
+<%=gmaps("map_options" => { "auto_zoom" => false, "type" => "ROADMAP", "zoom" => 12, "detect_location" => true, "center_on_user" => true, "auto_adjust" => true},"markers" => { "data" => Project.all.to_gmaps4rails }) %>
 <button type="button" id="ajax">Load Map</button>
 
 <%= link_to 'New Project', new_project_path %>
@@ -31,39 +31,23 @@
   <% end %>
 </table>
 <script type="text/javascript" charset="utf-8">
-  var geocoder;
-  var map;
 
-function initialize()
-{
-  geocoder = new google.maps.Geocoder();
-  var latlng = new google.maps.LatLng(54.55, -5.953);
-  var myOptions = {zoom: 11,center: latlng,mapTypeId:google.maps.MapTypeId.HYBRID,draggableCursor:'crosshair'}
-  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-  google.maps.event.addListener(map, 'click',function(me){
-    codeLatLng(me.latLng);
-    });
-}
-function codeLatLng(latlng)
-{
-  if (geocoder)
-  {
-    geocoder.geocode({'latLng': latlng}, function(results, status)
-      {
-      if (status == google.maps.GeocoderStatus.OK)
-      {
-      if (results[1])
-      {
-      document.getElementById("address").innerHTML=results[1].formatted_address;
-      }
-      else
-      {
-      document.getElementById("message").innerHTML="Geocoder failed due to: " + status;
-      document.getElementById("address").innerHTML="";
-      }
-      }
-      });
+Gmaps.map.HandleDragend = function(pos) {
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode({
+    latLng: pos
+  }, function(responses) {
+    if (responses && responses.length > 0) {
+      alert(responses[0].formatted_address);
+    } else {
+    alert('Cannot determine address at this location.');
+    }
+  });
+};
+
+Gmaps.map.callback = function() {
+  for (var i = 0; i <  this.markers.length; ++i) {
+     google.maps.event.addListener(Gmaps.map.markers[i].serviceObject, 'click', function() { Gmaps.map.HandleDragend(this.getPosition()) });
   }
-} 
+};        
 </script>
-
