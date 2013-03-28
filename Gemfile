@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
-gem 'rails', '3.2.13.rc1'
+ruby '1.9.3'
+gem 'rails', '3.2.13'
 gem 'gmaps4rails'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
