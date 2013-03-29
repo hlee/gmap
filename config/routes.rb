@@ -11,7 +11,7 @@ Gmap::Application.routes.draw do
   authenticated :user do
     root :to => "projects#index"
   end
-  root :to => "home#index"
+  root :to => "home#list"
   devise_for :users
   resources :users
 end
