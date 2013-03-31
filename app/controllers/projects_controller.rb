@@ -7,12 +7,13 @@ class ProjectsController < ApplicationController
     @projects = Project.all
     rip = request.remote_ip
     ip = rip == '127.0.0.1' ? '24.90.88.129' : rip
-    geo = GeoIP.new('lib/GeoLiteCity.dat').city(ip)
+    geo = GeoIP.new('lib/GeoLiteCity.dat').city(ip) ||  GeoIP.new('lib/GeoLiteCity.dat').city('24.90.88.129')
     @my_place = geo.latitude.to_s + ", " + geo.longitude.to_s
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @projects }
-    end
+    redirect_to action: :list
+    #respond_to do |format|
+      #format.html # index.html.erb
+      #format.json { render json: @projects }
+    #end
   end
 
   def list
@@ -20,7 +21,7 @@ class ProjectsController < ApplicationController
     @projects = Project.all
     rip = request.remote_ip
     ip = rip == '127.0.0.1' ? '24.90.88.129' : rip
-    geo = GeoIP.new('lib/GeoLiteCity.dat').city(ip)
+    geo = GeoIP.new('lib/GeoLiteCity.dat').city(ip) ||  GeoIP.new('lib/GeoLiteCity.dat').city('24.90.88.129')
     @my_place = geo.latitude.to_s + ", " + geo.longitude.to_s
     respond_to do |format|
       format.html # index.html.erb
