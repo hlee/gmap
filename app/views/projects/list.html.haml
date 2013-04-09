@@ -1,6 +1,6 @@
 %h1 Show Projects
 #map_canvas
-= gmaps("map_options" => { "auto_zoom" => false, "type" => "ROADMAP", "zoom" => 12, "detect_location" => true, "center_on_user" => true, "auto_adjust" => true},"markers" => { "data" => Project.all.to_gmaps4rails })
+  = gmaps("map_options" => { "auto_zoom" => false, "type" => "ROADMAP", "zoom" => 12, "detect_location" => true, "center_on_user" => true, "auto_adjust" => true},"markers" => { "data" => Project.all.to_gmaps4rails })
 %button#ajax{type: "button"} Load Map
 
 = link_to 'New Project', new_project_path
@@ -30,6 +30,7 @@
         = link_to 'Edit', edit_project_path(project)
       %td
         = link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }
+
 :javascript
   var fetch_location = function(pos) {
     $.ajax({
@@ -37,26 +38,27 @@
       url: "/projects/fetch",
       data: {lat: pos.lat(), lng: pos.lng()}
     }).done(function(msg){
-      alert("Project info: " + msg);
-    });
+        alert("Project info: " + msg);
+      });
   };
   Gmaps.map.HandleDragend = function(pos) {
     fetch_location(pos);
     var geocoder = new google.maps.Geocoder();
       geocoder.geocode({
-      latLng: pos
-    }, function(responses) {
-      if (responses && responses.length > 0) {
-        alert("Project Address: " + responses[0].formatted_address);
-      } else {
-        alert('Cannot determine address at this location.');
-      }
-    });
+        latLng: pos
+      }, function(responses) {
+        if (responses && responses.length > 0) {
+          alert("Project Address: " + responses[0].formatted_address);
+        } 
+        else {
+          alert('Cannot determine address at this location.');
+        }
+      });
   };
 
   Gmaps.map.callback = function() {
     for (var i = 0; i <  this.markers.length; ++i) {
-       google.maps.event.addListener(Gmaps.map.markers[i].serviceObject, 'click', function() { Gmaps.map.HandleDragend(this.getPosition()) });
+      google.maps.event.addListener(Gmaps.map.markers[i].serviceObject, 'click', function() { Gmaps.map.HandleDragend(this.getPosition()) });
     }
   };
-  </script>
+
