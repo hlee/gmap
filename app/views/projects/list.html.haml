@@ -11,9 +11,9 @@
     %th Created at
     %th Description
     %th Location
-    %th
-    %th
-    %th
+    -#%th
+    -#%th
+    -#%th
   - @projects.each do |project|
     %tr
       %td 
@@ -24,12 +24,12 @@
         = project.description
       %td
         = project.location
-      %td
-        = link_to 'Show', project
-      %td
-        = link_to 'Edit', edit_project_path(project)
-      %td
-        = link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }
+      -#%td
+        -#= link_to 'Show', project
+      -#%td
+        -#= link_to 'Edit', edit_project_path(project)
+      -#%td
+        -#= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }
 
 :javascript
   var fetch_location = function(pos) {
