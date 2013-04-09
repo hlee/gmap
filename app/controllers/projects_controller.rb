@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     require 'geoip'
-    @projects = Department.all.to_a.map{|x|x.projects}.flatten
+    @projects = Department.all_projects
     rip = request.remote_ip
     ip = rip == '127.0.0.1' ? '24.90.88.129' : rip
     geo = GeoIP.new('lib/GeoLiteCity.dat').city(ip) ||  GeoIP.new('lib/GeoLiteCity.dat').city('24.90.88.129')
@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
 
   def list
     require 'geoip'
-    @projects = Project.all
+    @projects = Department.all_projects
     rip = request.remote_ip
     ip = rip == '127.0.0.1' ? '24.90.88.129' : rip
     geo = GeoIP.new('lib/GeoLiteCity.dat').city(ip) ||  GeoIP.new('lib/GeoLiteCity.dat').city('24.90.88.129')
