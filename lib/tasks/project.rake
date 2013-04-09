@@ -2,7 +2,6 @@ namespace :project do
   desc 'load initial projects related data'
   task bulk_load: :environment do
     lines = File.readlines('public/project_data.csv').map{|x|x.gsub("\n",'')}
-    debugger
     lines.each do |line|
       rs = line.split('|')
       next if rs.blank?
