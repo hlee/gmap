@@ -4,9 +4,14 @@ class Project
   #has_one :location
   include Gmaps4rails::ActsAsGmappable
   #include Mongoid::Geo
+  embedded_in :department
   field :name, type: String
   field :created_at, type: Time
   field :description, type: String
+  field :salinity, type: Float
+  field :temperature, type: Float
+  field :oxygen, type: Float
+  field :saturation, type: Float
   acts_as_gmappable :position => :location, :process_geocoding => false
   field :location, :type => Array
   def to_latlng
