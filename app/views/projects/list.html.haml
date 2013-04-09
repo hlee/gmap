@@ -1,6 +1,6 @@
 %h1 Show Projects
 #map_canvas
-  = gmaps("map_options" => { "auto_zoom" => false, "type" => "ROADMAP", "zoom" => 12, "detect_location" => true, "center_on_user" => true, "auto_adjust" => true},"markers" => { "data" => Project.all.to_gmaps4rails })
+  = gmaps("map_options" => { "auto_zoom" => false, "type" => "ROADMAP", "zoom" => 12, "detect_location" => true, "center_on_user" => true, "auto_adjust" => true},"markers" => { "data" => Department.all_projects.to_gmaps4rails })
 %button#ajax{type: "button"} Load Map
 
 = link_to 'New Project', new_project_path
