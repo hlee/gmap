@@ -6,7 +6,7 @@ class Project
   #include Mongoid::Geo
   embedded_in :department
   field :name, type: String
-  field :created_at, type: Time
+  field :created_date, type: Date
   field :description, type: String
   field :salinity, type: Float
   field :temperature, type: Float
