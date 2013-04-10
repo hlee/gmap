@@ -28,6 +28,11 @@ class Project
   end
   
   def dis_info
-    "Name: " + self.name + " \nDescription:" + self.description 
+    "\nName:    " + self.name + 
+    "\nDescription:    " + self.description +
+    "\nSalinity:    " +  self.salinity.to_s  + "ppt" + 
+    "\nTemperature:    " + self.temperature.to_s + "cel" +
+    "\nOxygen:    " + self.oxygen.to_s + "mg/l" +
+    "\nSaturation:    " + self.saturation.to_s + '%'
   end
 end
