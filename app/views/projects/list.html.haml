@@ -1,6 +1,19 @@
+= form_tag list_projects_path, method: :get  do
+  %span{style: 'padding-right: 10px'} Department
+  = select_tag 'department', options_from_collection_for_select(Department.all.to_a, 'id', 'name')
+  %span Parameter
+  = select_tag 'parameter', parameter_options
+  %span Range
+  = text_field_tag 'start_value'
+  %span To
+  = text_field_tag 'end_value'
+  %br
+  = submit_tag 'Search'
+
 %h1 Show Projects
+
 #map_canvas
-  = gmaps("map_options" => { "auto_zoom" => false, "type" => "ROADMAP", "zoom" => 12, "detect_location" => true, "center_on_user" => true, "auto_adjust" => true},"markers" => { "data" => Department.all_projects.to_gmaps4rails })
+  = gmaps("map_options" => { "auto_zoom" => false, "type" => "ROADMAP", "zoom" => 12, "detect_location" => true, "center_on_user" => true, "auto_adjust" => true},"markers" => { "data" => @projects.to_gmaps4rails })
 %button#ajax{type: "button"} Load Map
 
 = link_to 'New Project', new_project_path
