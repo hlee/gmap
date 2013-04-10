@@ -23,7 +23,12 @@
     %th Name
     %th Created at
     %th Description
-    %th Location
+    %th Latitude
+    %th Longitude
+    %th Salinity
+    %th Temperature
+    %th Oxygen
+    %th Saturation
     -#%th
     -#%th
     -#%th
@@ -36,7 +41,17 @@
       %td
         = project.description
       %td
-        = project.location
+        = project.location.first
+      %td
+        = project.location.last
+      %td
+        = project.salinity
+      %td
+        = project.temperature
+      %td
+        = project.oxygen
+      %td 
+        = project.saturation
       -#%td
         -#= link_to 'Show', project
       -#%td
