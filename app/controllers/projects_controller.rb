@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  include ApplicationHelper
+  include ProjectsHelper
   before_filter :authenticate_user!
   # GET /projects
   # GET /projects.json
@@ -18,7 +20,11 @@ class ProjectsController < ApplicationController
 
   def list
     require 'geoip'
-    @projects = Department.all_projects
+    if params[:department].blank?
+      @projects = Department.all_projects 
+    else
+      @projects = Department.fetch_projects params
+    end
     rip = request.remote_ip
     ip = rip == '127.0.0.1' ? '24.90.88.129' : rip
     geo = GeoIP.new('lib/GeoLiteCity.dat').city(ip) ||  GeoIP.new('lib/GeoLiteCity.dat').city('24.90.88.129')

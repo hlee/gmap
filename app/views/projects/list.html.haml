@@ -1,13 +1,14 @@
-%span{style: 'padding-right: 10px'} Department
-= select_tag 'Department', options_from_collection_for_select(Department.all.to_a, 'id', 'name')
-%span Parameter
-= select_tag 'Parameter', parameter_options
-%span Range
-= text_field_tag 'start_value'
-%span To
-= text_field_tag 'end_value'
-%br
-= button_tag 'Search'
+= form_tag list_projects_path, method: :get  do
+  %span{style: 'padding-right: 10px'} Department
+  = select_tag 'department', options_from_collection_for_select(Department.all.to_a, 'id', 'name')
+  %span Parameter
+  = select_tag 'parameter', parameter_options
+  %span Range
+  = text_field_tag 'start_value'
+  %span To
+  = text_field_tag 'end_value'
+  %br
+  = submit_tag 'Search'
 
 %h1 Show Projects
 
