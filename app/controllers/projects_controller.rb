@@ -20,9 +20,10 @@ class ProjectsController < ApplicationController
 
   def list
     require 'geoip'
-    if params[:department].blank?
+    if params and params[:department].blank?
       @projects = Department.all_projects 
     else
+      @params = params
       @projects = Department.fetch_projects params
     end
     rip = request.remote_ip

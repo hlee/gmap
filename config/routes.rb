@@ -4,6 +4,7 @@ Gmap::Application.routes.draw do
 
   resources :projects do
     get 'list', on: :collection
+    post 'list', on: :collection
     get 'fetch', on: :collection
   end
 
