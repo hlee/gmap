@@ -4,7 +4,7 @@ module ProjectsHelper
     project.name
   end
  
-  def parameter_options id
+  def parameter_options id=0
     options = %w(salinity temperature oxygen saturation)
     arr = []
     options.each_with_index{|x,i|arr << [x, i]}

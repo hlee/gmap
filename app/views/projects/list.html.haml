@@ -1,25 +1,25 @@
 = form_tag list_projects_path, method: :post  do
   %span{style: 'padding-right: 10px'} Department
-  - if @params
-    = select_tag 'department', options_from_collection_for_select(Department.all.to_a, 'id', 'name')
-  - else
+  - if @params and @params[:department].present?
     = select_tag 'department', options_from_collection_for_select(Department.all.to_a, 'id', 'name', @params[:department])
+  - else
+    = select_tag 'department', options_from_collection_for_select(Department.all.to_a, 'id', 'name')
 
   %span Parameter
-  - if @params
-    = select_tag 'parameter', parameter_options
-  - else
+  - if @params and @params[:parameter].present?
     = select_tag 'parameter', parameter_options(@params[:parameter])
+  - else
+    = select_tag 'parameter', parameter_options
   %span Range
-  - if @params
-    = text_field_tag 'start_value', 0
-  - else
+  - if @params and @params[:start_value].present?
     = text_field_tag 'start_value', (@params[:start_value] or 0)
-  %span To
-  - if @params
-    = text_field_tag 'end_value', 100 
   - else
+    = text_field_tag 'start_value', 0
+  %span To
+  - if @params and @params[:end_value].present?
     = text_field_tag 'end_value', (@params[:end_value] or 100)
+  - else
+    = text_field_tag 'end_value', 100 
   %br
   = submit_tag 'Search'
 
