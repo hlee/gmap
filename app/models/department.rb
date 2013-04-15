@@ -15,4 +15,24 @@ class Department
     filter = options[option_id.to_i].to_sym
     self.where(id: department_id).first.projects.where(filter.gt => start_value.to_f, filter.lt => end_value.to_f).to_a
   end
+  
+  def self.sum_salinity
+    map = %Q{
+      function() {
+        emit(this._id, {books: this.books});
+      }
+    }
+    reduce = %Q{
+      function(key, values) {
+        var result = {salinity: 0};
+        values.forEach(function(value){
+          value.forEach(function(project){
+            result.salinity += project.salinity;
+          });
+        });
+        return result;
+      }
+    }
+    Project.map_reduce(map, reduce).out(inline: true)
+  end
 end
