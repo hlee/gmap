@@ -35,4 +35,23 @@ class Project
     "\nOxygen:    " + self.oxygen.to_s + "mg/l" +
     "\nSaturation:    " + self.saturation.to_s + '%'
   end
+
+  def self.map_reduce1
+    #FIXME seems not belongs to here
+    map = %Q{
+      function() {
+        emit(this._id, {salinity: this.salinity});
+      }
+    }
+    reduce = %Q{
+      function(key, values) {
+        var result = {salinity: 0};
+        values.forEach(function(value){
+          result.salinity += value.salinity;
+        });
+        return result;
+      }
+    }
+    Project.map_reduce(map, reduce).out(inline: true)
+  end
 end
